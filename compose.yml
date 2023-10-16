@@ -1,0 +1,47 @@
+version: "3.8"
+networks:
+  postgresql-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_icc: "true"
+
+services:
+  postgresql:
+    image: postgres:13.0
+    ports:
+      - "5432:5432"
+    container_name: "dockerpostgresql"
+    networks:
+      - postgresql-network
+    restart: always
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: db
+    expose:
+      - '5432'
+  prisma:
+    container_name: dockerprisma
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - postgresql-network
+    volumes:
+      - ./src:/usr/api/app/src
+    command: >
+        sh -c "/usr/local/bin/wait-for-it.sh dockerpostgresql:5432 --timeout=60 &&
+        npx prisma migrate dev --name init &&
+        ls &&
+        npm run start:dev"
+    depends_on:
+    - postgresql
+    mem_limit: 512m
+volumes:
+  data-prisma:
+  data-postgresql:
