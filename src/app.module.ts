@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { CarController } from './car/car.controller';
 import { CarService } from './car/car.service';
 import { CarModelController } from './car-model/car-model.controller';
@@ -13,8 +11,8 @@ import { FilterExecptionHTTP } from './common/error-handler/http-error-handler.f
 
 @Module({
   imports: [],
-  controllers: [AppController, CarController, CarModelController, MarkController],
-  providers: [AppService, CarService, CarModelService, MarkService, PrismaService, 
+  controllers: [ CarController, CarModelController, MarkController],
+  providers: [ CarService, CarModelService, MarkService, PrismaService, 
   {provide: 'APP_FILTER', useClass: PrismaExceptionFilter},
   {provide: 'APP_FILTER', useClass: FilterExecptionHTTP }
   ],

@@ -34,6 +34,8 @@ services:
       - postgresql-network
     volumes:
       - ./src:/usr/api/app/src
+      - ./test:/usr/api/app/test
+      - ./package.json:/usr/api/app/package.json
     command: >
         sh -c "/usr/local/bin/wait-for-it.sh dockerpostgresql:5432 --timeout=60 &&
         npx prisma migrate dev --name init &&
@@ -41,7 +43,7 @@ services:
         npm run start:dev"
     depends_on:
     - postgresql
-    mem_limit: 512m
+    mem_limit: 1G
 volumes:
   data-prisma:
   data-postgresql:

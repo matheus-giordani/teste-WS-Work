@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Marca {
-  id         Int      @id @default(autoincrement())
+  id         Int      @id @default(autoincrement() )  
   nome_marca String
   Modelo     Modelo[]
 
@@ -19,7 +19,7 @@ model Marca {
 }
 
 model Modelo {
-  id         Int     @id @default(autoincrement())
+  id         Int     @id @default(autoincrement()) 
   nome       String
   marca      Marca   @relation(fields: [marca_id], references: [id], onDelete: Cascade)
   marca_id   Int
