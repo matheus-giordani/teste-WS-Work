@@ -4,13 +4,13 @@ import { Marca,Prisma } from '@prisma/client';
 
 @Injectable()
 export class MarkService {
-    constructor(private prisma: PrismaService){}
+    constructor(private prismaService: PrismaService){}
 
     async getMarks(): Promise<Marca[]> {
-        return this.prisma.marca.findMany();
+        return this.prismaService.marca.findMany();
     }
     async getMark(id: Prisma.MarcaWhereUniqueInput): Promise<Marca> {
-        const existingMark = await this.prisma.marca.findUnique({
+        const existingMark = await this.prismaService.marca.findUnique({
           where: id ,
         });
         if (!existingMark) throw new NotFoundException('Marca não encontrada')
@@ -18,7 +18,7 @@ export class MarkService {
     }
 
     async createMark(data: Prisma.MarcaCreateInput): Promise<Marca> {
-        return this.prisma.marca.create({
+        return this.prismaService.marca.create({
           data,
         });
     }
@@ -28,14 +28,15 @@ export class MarkService {
         data: Prisma.MarcaUpdateInput;
       }): Promise<Marca> {
         const { where, data } = params;
-        return this.prisma.marca.update({
+        console.log("teste")
+        return this.prismaService.marca.update({
           data,
           where,
         });
     }
 
     async deleteMark(where: Prisma.MarcaWhereUniqueInput): Promise<Marca> {
-        return this.prisma.marca.delete({
+        return this.prismaService.marca.delete({
           where,
         });
     }

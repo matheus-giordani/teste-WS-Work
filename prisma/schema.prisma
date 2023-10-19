@@ -21,7 +21,7 @@ model Marca {
 model Modelo {
   id         Int     @id @default(autoincrement()) 
   nome       String
-  marca      Marca   @relation(fields: [marca_id], references: [id], onDelete: Cascade)
+  marca      Marca?   @relation(fields: [marca_id], references: [id], onDelete: Cascade)
   marca_id   Int
   valor_fipe Float
   Carro      Carro[]
@@ -31,8 +31,8 @@ model Modelo {
 
 model Carro {
   id                 Int         @id @default(autoincrement())
-  timestamp_cadastro DateTime    @default(now())
-  modelo             Modelo      @relation(fields: [modelo_id], references: [id], onDelete: Cascade)
+  timestamp_cadastro DateTime?    @default(now())
+  modelo             Modelo?      @relation(fields: [modelo_id], references: [id], onDelete: Cascade)
   modelo_id          Int
   ano                Int
   combustivel        Combustivel @default(gasolina)

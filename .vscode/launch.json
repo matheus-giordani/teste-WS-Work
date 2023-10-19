@@ -10,7 +10,7 @@
           "${workspaceRoot}/node_modules/jest/bin/jest.js",
           "--runInBand",
           "--config",
-          "./jest.config.js"
+          "${workspaceRoot}/jest.config.ts"
         ],
         "env": {
           "NODE_OPTIONS":"--experimental-vm-modules"

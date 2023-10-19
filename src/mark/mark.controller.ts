@@ -2,7 +2,7 @@ import { Body, Controller, Get, HttpCode, Param, Post, Put, Delete } from '@nest
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MarkService } from './mark.service';
 import { MarcaDto } from './mark.dto';
-import { exclude } from 'src/utils/exclude';
+import { exclude } from '../../src/utils/exclude';
 
 
 @ApiTags('Marks')
@@ -23,10 +23,10 @@ export class MarkController {
     }
 
     @Get(':id')
-    @ApiOperation({ summary: 'Find one user' })
+    @ApiOperation({ summary: 'Find one mark' })
     @ApiResponse({
         status: 200,
-        description: 'Get User Success',
+        description: 'Get mork Success',
         type: MarcaDto,
     })
     @ApiResponse({
@@ -35,7 +35,7 @@ export class MarkController {
         schema: {
             example: {
                 statusCode: 404,
-                message: 'Usuário não encontrado',
+                message: 'Mark not found',
                 error: 'Not Found',
             },
         },
